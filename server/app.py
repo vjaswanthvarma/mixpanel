@@ -23,6 +23,7 @@ async def root():
     return {"message":"Hello World"}
 @app.post("/demo")  
 async def demo(data:User):
+    mp.track(data.id,"Logged In",{"name":data.name, "email":data.email, "id":data.id});
     mp.people_set(data.name ,{"name":data.name, "email":data.email, "id":data.id,"$city":"Bhimavaram","$country code":"+91","$region":"AP","likes":0,"dislikes":0});
     return {"message":"true"}
 @app.post("/track")
