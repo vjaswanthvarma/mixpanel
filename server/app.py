@@ -14,7 +14,8 @@ class User(BaseModel):
     name:str;
     email:str;
     id:str
-
+class catagory(BaseModel):
+    cat:str
 
 mp=Mixpanel("b5bee29b37e022dc7d4e1240a487cdb1");
 @app.get("/")
@@ -22,5 +23,10 @@ async def root():
     return {"message":"Hello World"}
 @app.post("/demo")  
 async def demo(data:User):
-    mp.track(data.id,'Loggedin',{'name': data.name,'email':data.email})
+    mp.people_set(data.name ,{"name":data.name, "email":data.email, "id":data.id,"$city":"Bhimavaram","$country code":"+91","$region":"AP","likes":0,"dislikes":0});
     return {"message":"true"}
+@app.post("/track")
+async def track(data:catagory):
+    mp.people_increment("jaswanth",{f"{data.cat}s":1})
+    print(data.cat);
+

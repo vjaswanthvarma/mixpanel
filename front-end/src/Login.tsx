@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { Button } from "./components/ui/button";
 import {Card, CardContent} from "./components/ui/card";
+import { useNavigate } from "react-router-dom";
 export default function Login(){
     const [username, setUsername]=useState({"name":"","email":"","id":""});
+    const navigate = useNavigate();
 
     return(<>
     <div className="flex items-center justify-center">
@@ -20,7 +22,7 @@ export default function Login(){
                             body: JSON.stringify(username)
                         }).then((res)=>res.json()).then((data)=>{
                             if(data.message){
-                                alert("submitted successfully")
+                                navigate("/dashboard");
                             }
                         });
                     }}>Submit</Button>
